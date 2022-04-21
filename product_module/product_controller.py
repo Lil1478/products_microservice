@@ -37,7 +37,13 @@ async def get_products():
 
 @router.get("/{product_id}")
 async def get_product(product_id: int):
-    return product_repository.get_product_by_id(product_id)
+    return {
+        'id': 1,
+        "owner_id": 1,
+        'name': "product name",
+        'price': 10
+    }
+    # return product_repository.get_product_by_id(product_id)
 
 
 @router.put("/{product_id}")
