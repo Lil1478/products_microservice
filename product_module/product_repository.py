@@ -7,17 +7,17 @@ class ProductRepository:
         print("ProductRepository")
 
     def add_product(self, product: Product):
-        # return self.account_dao.add_product(product)
-        return "product added"
+        return self.account_dao.add_product(product)
+        # return "product added"
 
     def get_products(self):
-        # return self.account_dao.get_all()
-        return "product getted"
+        return self.account_dao.get_all()
+        # return "product getted"
 
     def get_product_by_id(self, product_id):
-        # return self.account_dao.get_product(product_id)
-        return "product getted by id"
+        return self.account_dao.get_product(product_id)
+        # return "product getted by id"
 
     def delete_product(self, product_id):
-        # return self.account_dao.delete_product(product_id)
-        return "product deleted"
+        return self.account_dao.delete_product(product_id)
+        # return "product deleted"

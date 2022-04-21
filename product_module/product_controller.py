@@ -29,9 +29,6 @@ def add_product(new_product: Product):
 
 @router.get("/")
 async def get_products():
-    req = requests.get('http://localhost:8000/users/1')
-    user = req.json()
-    print("USER GETTED ", user)
     return product_repository.get_products()
 
 
@@ -43,7 +40,12 @@ async def get_product(product_id: int):
     #     'name': "product name",
     #     'price': 10
     # }
-    return product_repository.get_product_by_id(product_id)
+    product = product_repository.get_product_by_id(product_id)
+    req = requests.get('http://localhost:8000/users/' % product['owner_id']).json()
+    user = req.json()
+    print("Products owner ", user)
+    # return product_repository.get_product_by_id(product_id)
+    return {'id': 1, "owner_id": 1, 'name': "product name", 'price': 10, 'owner_first_name': user['first_name']}
 
 
 @router.put("/{product_id}")
