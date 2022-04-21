@@ -6,7 +6,7 @@ from database import Base
 class Product(Base):
     __tablename__ = 'Products'
     product_id = Column(Integer, primary_key=True)
-    owner_id = Column(Integer, primary_key=True)
+    owner_id = Column(Integer, primary_key=False)
     name = Column(String(120), nullable=False)
     price = Column(Integer(), nullable=False)
 

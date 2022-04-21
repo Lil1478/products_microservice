@@ -17,7 +17,8 @@ class ProductDAO:
         return products
 
     def add_product(self, product: Product):
-        product = Product(product.name, product.price)
+        print("---------- ", product)
+        product = Product(product.name, product.owner_id,  product.price)
         db.add(product)
         db.commit()
         return self.get_product(product.product_id)
