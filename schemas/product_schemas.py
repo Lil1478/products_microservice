@@ -3,5 +3,5 @@ from pydantic import BaseModel
 
 class Product(BaseModel):
     name: str
-    owner_id: int
+    description: str
     price: float
