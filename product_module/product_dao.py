@@ -36,17 +36,17 @@ class ProductDAO:
             Product.product_id == product_id).first()
         if product_db is None:
             raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND, detail="Resource Not Found")
+                status_code=status.HTTP_404_NOT_FOUND, detail="Product Not Found")
         db.delete(product_db)
         db.commit()
         return "SUCCESS"
 
-    def update_product(self, product_id, new_product: Product):
+    def update_product(self, user_id, product_id, new_product: Product):
         db_product = db.query(Product).filter(
-            Product.product_id == product_id).first()
+            Product.product_id == product_id, Product.owner_id == user_id).first()
         if db_product is None:
             raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND, detail="Order Not Found")
+                status_code=status.HTTP_404_NOT_FOUND, detail="Product Not Found")
         db_product.name = new_product.name
         db_product.description = new_product.description
         db_product.price = new_product.price

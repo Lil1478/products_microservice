@@ -22,12 +22,12 @@ class ProductRepository:
         return self.product_dao.get_all()
         # return "product getted"
 
-    def get_products_user(self, logged_user):
-        user_id = logged_user['user_id']
+    def get_products_user(self, user_id):
+
         return self.product_dao.get_products_by_user_id(user_id)
 
-    def update_product(self, product_id, new_product):
-        return self.product_dao.update_product(product_id, new_product)
+    def update_product(self, user_id, product_id, new_product):
+        return self.product_dao.update_product(user_id, product_id, new_product)
 
     def get_product_by_id(self, product_id):
         return self.product_dao.get_product(product_id)
@@ -36,6 +36,17 @@ class ProductRepository:
     def delete_product(self, product_id):
         return self.product_dao.delete_product(product_id)
         # return "product deleted"
+
+
+def check_user_exist(request, user_id: int):
+    try:    
+        gateway = config['gateway']['host']
+        token = request.headers['Authorization']
+        exist_user = requests.get(
+            gateway + '/users/'+str(user_id), headers={'Authorization': token}).json()
+        return exist_user
+    except:
+        return "ERROR"
 
 
 def check_user(request):
