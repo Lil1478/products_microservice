@@ -25,7 +25,11 @@ credentials_exception = HTTPException(
 
 @router.post("")
 def add_product(request: Request, new_product: Product):
-    checked_user = check_user(request)
+    try:
+        checked_user = check_user(request)
+    except Exception as e:
+        return HTTPException(
+        status_code=500, detail="Error during processing")
     if checked_user == 'AUTH_ERROR':
         return credentials_exception
     result = product_repository.add_product(new_product, checked_user)
@@ -33,8 +37,12 @@ def add_product(request: Request, new_product: Product):
 
 
 @router.get("")
-async def get_products(request: Request,):
-    checked_user = check_user(request)
+async def get_products(request: Request):
+    try:
+        checked_user = check_user(request)
+    except Exception as e:
+        return HTTPException(
+        status_code=500, detail="Error during processing")
     if checked_user == 'AUTH_ERROR':
         raise credentials_exception
     return product_repository.get_products()
@@ -42,7 +50,11 @@ async def get_products(request: Request,):
 
 @router.get("/user")
 async def get_products(request: Request, user_id: int):
-    checked_user = check_user(request)
+    try:
+        checked_user = check_user(request)
+    except Exception as e:
+        return HTTPException(
+        status_code=500, detail="Error during processing")
     if checked_user == 'AUTH_ERROR':
         raise credentials_exception
     exist_user = check_user_exist(request, user_id)
@@ -57,7 +69,11 @@ async def get_products(request: Request, user_id: int):
 
 @router.get("/{product_id}")
 async def get_product(request: Request, product_id: int):
-    checked_user = check_user(request)
+    try:
+        checked_user = check_user(request)
+    except Exception as e:
+        return HTTPException(
+        status_code=500, detail="Error during processing")
     if checked_user == 'AUTH_ERROR':
         raise credentials_exception
     return product_repository.get_product_by_id(product_id)
@@ -65,7 +81,11 @@ async def get_product(request: Request, product_id: int):
 
 @router.put("/{product_id}")
 def update_product(request: Request, product_id: int, new_product: Product):
-    checked_user = check_user(request)
+    try:
+        checked_user = check_user(request)
+    except Exception as e:
+        return HTTPException(
+        status_code=500, detail="Error during processing")
     if checked_user == 'AUTH_ERROR':
         raise credentials_exception
     result = product_repository.update_product(
@@ -75,7 +95,11 @@ def update_product(request: Request, product_id: int, new_product: Product):
 
 @router.delete("/{product_id}")
 async def delete_product(request: Request, product_id: int):
-    checked_user = check_user(request)
+    try:
+        checked_user = check_user(request)
+    except Exception as e:
+        return HTTPException(
+        status_code=500, detail="Error during processing")
     if checked_user == 'AUTH_ERROR':
         raise credentials_exception
     return product_repository.delete_product(product_id)
